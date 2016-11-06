@@ -1,0 +1,2 @@
+# macOS tuning
+max_open_files: 8192

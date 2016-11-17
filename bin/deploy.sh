@@ -12,7 +12,7 @@ git pull -q
 echo "Deploying `git log | head -1`"
 
 # Loop through files, rsync aggressively, but ignore certain files
-echo "Syncing Files"
+echo "Syncing salt configs"
 sudo rsync -aid \
   --exclude '/etc/salt/keys/*' \
   --exclude '/etc/salt/pki/*' \
@@ -22,7 +22,7 @@ sudo rsync -aid \
   ./srv / 
 
 # Populate the aws keys
-echo "Populating Keys"
+echo "Populating aws keys"
 AWS_ID=$(grep "aws_access_key_id" ~/.aws/credentials | head -1 | awk '{ print $3 } ')
 AWS_KEY=$(grep "aws_secret_access_key" ~/.aws/credentials | head -1 | awk '{ print $3}')
 

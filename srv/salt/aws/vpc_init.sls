@@ -8,7 +8,7 @@ white_vpc:
     - name: white
     - cidr_block: 10.0.0.0/20
     - region: us-west-2
-    - key_id: {{ aws_id }}
+    - keyid: {{ aws_id }}
     - key: {{ aws_key }}
 
 # Create an internet gateway
@@ -17,7 +17,7 @@ white_gateway:
     - name: white
     - vpc_name: white
     - region: us-west-2
-    - key_id: {{ aws_id }}
+    - keyid: {{ aws_id }}
     - key: {{ aws_key }}
     - require:
       - boto_vpc: white_vpc
@@ -33,7 +33,7 @@ white_route_public:
       - destination_cidr_block: 0.0.0.0/0
         internet_gateway_name: white
     - region: us-west-2
-    - key_id: {{ aws_id }}
+    - keyid: {{ aws_id }}
     - key: {{ aws_key }}
     - require:
       - boto_vpc: white_gateway
@@ -44,7 +44,7 @@ white_subnet:
     - cidr_block: 10.0.0.0/22
     - vpc_name: white
     - region: us-west-2
-    - key_id: {{ aws_id }}
+    - keyid: {{ aws_id }}
     - key: {{ aws_key }}
     - require:
       - boto_vpc: white_route_public

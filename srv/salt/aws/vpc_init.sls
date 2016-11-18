@@ -69,6 +69,7 @@ white_sg_saltmaster:
         from_port: "4505"
         to_port: "4506"
         cidr_ip: "10.0.0.0/20"
+    - region: us-west-2
     - keyid: {{ aws_id }}
     - key: {{ aws_key }}
     - require:
@@ -103,6 +104,7 @@ white_sg_nginx:
         from_port: "443"
         to_port: "443"
         cidr_ip: "0.0.0.0/0"
+    - region: us-west-2
     - keyid: {{ aws_id }}
     - key: {{ aws_key }}
     - require:

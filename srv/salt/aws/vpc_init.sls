@@ -48,3 +48,51 @@ white_subnet:
     - key: {{ aws_key }}
     - require:
       - boto_vpc: white_vpc
+
+white_sg_saltmaster:
+  boto_secgroup.present:
+    - name: white_saltmaster
+    - description: "Created with Salt."
+    - vpc_name: white
+    - region: us-west-2
+    - rules:
+      # SSH
+      - ip_protocol: "tcp"
+        from_port: "22"
+        to_port: "22"
+        cidr_ip: "0.0.0.0/0"
+      # Salt connections
+      - ip_protocol: "all"
+        from_port: "4505"
+        to_port: "4506"
+        cidr_ip: "10.0.0.0/20"
+
+
+white_sg_nginx:
+  boto_secgroup.present:
+    - name: white_nginx
+    - description: "Created with Salt."
+    - vpc_name: white
+    - region: us-west-2
+    - rules:
+      # SSH
+      - ip_protocol: "tcp"
+        from_port: "22"
+        to_port: "22"
+        cidr_ip: "0.0.0.0/0"
+      # Salt connections
+      - ip_protocol: "all"
+        from_port: "4505"
+        to_port: "4506"
+        cidr_ip: "10.0.0.0/20"
+      # Web connections
+      - ip_protocol: "all"
+        from_port: "80"
+        to_port: "80"
+        cidr_ip: "0.0.0.0/0"
+      - ip_protocol: "all"
+        from_port: "443"
+        to_port: "443"
+        cidr_ip: "0.0.0.0/0"
+
+

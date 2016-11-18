@@ -36,7 +36,7 @@ white_route_public:
     - keyid: {{ aws_id }}
     - key: {{ aws_key }}
     - require:
-      - boto_vpc: white_gateway
+      - boto_vpc: white_subnet
 # Create a subnet 
 white_subnet:
   boto_vpc.subnet_present:
@@ -47,4 +47,4 @@ white_subnet:
     - keyid: {{ aws_id }}
     - key: {{ aws_key }}
     - require:
-      - boto_vpc: white_route_public
+      - boto_vpc: white_vpc

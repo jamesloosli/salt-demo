@@ -54,7 +54,6 @@ white_sg_saltmaster:
     - name: white_saltmaster
     - description: "Created with Salt."
     - vpc_name: white
-    - region: us-west-2
     - rules:
       # SSH
       - ip_protocol: "tcp"
@@ -66,14 +65,16 @@ white_sg_saltmaster:
         from_port: "4505"
         to_port: "4506"
         cidr_ip: "10.0.0.0/20"
-
+    - keyid: {{ aws_id }}
+    - key: {{ aws_key }}
+    - require:
+      - boto_vpc: white_vpc
 
 white_sg_nginx:
   boto_secgroup.present:
     - name: white_nginx
     - description: "Created with Salt."
     - vpc_name: white
-    - region: us-west-2
     - rules:
       # SSH
       - ip_protocol: "tcp"
@@ -94,5 +95,9 @@ white_sg_nginx:
         from_port: "443"
         to_port: "443"
         cidr_ip: "0.0.0.0/0"
+    - keyid: {{ aws_id }}
+    - key: {{ aws_key }}
+    - require:
+      - boto_vpc: white_vpc
 
 

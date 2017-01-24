@@ -5,16 +5,92 @@ Vagrant.configure("2") do |config|
   ## Control the synced folders more tightly
   config.vm.synced_folder ".", "/vagrant", disabled: true
 
-  ## Use all the defaults:
+  ## Networking
+ 
+  ## Define some hosts
   config.vm.define "master" do |master|
-    config.vm.provision :salt do |salt|
-      ## Sync salt code, master config
-      config.vm.synced_folder "srv", "/srv"
-      config.vm.synced_folder "etc/salt", "/etc/salt"
+    
+    ## Network
+    master.vm.hostname = "master"
+    master.vm.network "private_network", virtualbox__intnet: true, ip: "192.168.50.10"
+
+    ## Salt
+    master.vm.provision :salt do |salt|
+
+      ## Sync salt code
+      master.vm.synced_folder "srv", "/srv"
+
       ## Install the salt master
       salt.install_master = true
-      salt.install_args = "git v2015.8.8"
-      ## Pre-seed some keys
+      salt.version = "2015.8.8"
+      salt.minion_id = "master"
+
+      ## Keys
+      salt.master_key = "keys/master.pem"
+      salt.master_pub = "keys/master.pub"
+      salt.minion_key = "keys/master-minion.pem"
+      salt.minion_pub = "keys/master-minion.pub"
+      salt.seed_master = {
+        master:"keys/master-minion.pub", 
+        thing1:"keys/thing1.pub", 
+        thing2:"keys/thing2.pub"
+      }
+
     end
+
+    ## Saltmaster Host
+    master.vm.provision :hosts do |hosts|
+      hosts.add_host '192.168.50.10', ['salt']
+    end
+
   end
+
+  config.vm.define "thing1" do |thing1|
+
+    ## Network
+    thing1.vm.hostname = "thing1"
+    thing1.vm.network "private_network", virtualbox__intnet: true, ip: "192.168.50.11"
+
+    ## Salt
+    thing1.vm.provision :salt do |salt|
+
+      salt.minion_config = "etc/salt/minion"
+      salt.version = "2015.8.8"
+      salt.minion_id = "thing1"
+      salt.minion_key = "keys/thing1.pem"
+      salt.minion_pub = "keys/thing1.pub"
+    
+    end
+
+    ## Saltmaster Host
+    thing1.vm.provision :hosts do |hosts|
+      hosts.add_host '192.168.50.10', ['salt']
+    end
+
+  end
+
+  config.vm.define "thing2" do |thing2|
+
+    ## Network
+    thing2.vm.hostname = "thing2"
+    thing2.vm.network "private_network", virtualbox__intnet: true, ip: "192.168.50.12"
+
+    ## Salt
+    thing2.vm.provision :salt do |salt|
+
+      salt.minion_config = "etc/salt/minion"
+      salt.version = "2015.8.8"
+      salt.minion_id = "thing2"
+      salt.minion_key = "keys/thing2.pem"
+      salt.minion_pub = "keys/thing2.pub"
+    
+    end
+
+    ## Saltmaster Host
+    thing2.vm.provision :hosts do |hosts|
+      hosts.add_host '192.168.50.10', ['salt']
+    end
+
+  end
+
 end

@@ -27,6 +27,6 @@ AWS_ID=$(grep "aws_access_key_id" ~/.aws/credentials | head -1 | awk '{ print $3
 AWS_KEY=$(grep "aws_secret_access_key" ~/.aws/credentials | head -1 | awk '{ print $3}')
 
 if [[ ! -z $AWS_ID ]] ; then
-  bash -c "sed -i '' 's^@AWS_ACCESS_KEY_ID@^${AWS_ID}^' /etc/salt/cloud.providers.d/salt-demo.conf"
-  bash -c "sed -i '' 's^@AWS_SECRET_ACCESS_KEY@^${AWS_KEY}^' /etc/salt/cloud.providers.d/salt-demo.conf"
+  bash -c "sed -i '' 's^@AWS_ACCESS_KEY_ID@^${AWS_ID}^' /etc/salt/cloud.providers.d/ec2.conf"
+  bash -c "sed -i '' 's^@AWS_SECRET_ACCESS_KEY@^${AWS_KEY}^' /etc/salt/cloud.providers.d/ec2.conf"
 fi

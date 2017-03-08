@@ -1,4 +1,4 @@
 [submodule "lib/demo-formula"]
-	path = lib/demo-formula
+	path = formulas/lib/demo-formula
 	url = git@github.com-roosri:roosri/demo-formula.git
 	branch = v0.0.1

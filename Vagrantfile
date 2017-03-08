@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
 
       ## Sync salt code
       master.vm.synced_folder "srv", "/srv"
-      master.vm.synced_folder "bin", "/bin"
+      master.vm.synced_folder "bin", "/root/bin"
       master.vm.synced_folder "formulas", "/formulas"
 
       ## Install the salt master

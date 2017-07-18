@@ -45,6 +45,11 @@ Vagrant.configure("2") do |config|
       hosts.add_host '192.168.50.10', ['salt']
     end
 
+    ## Saltmaster Role grain
+    master.vm.provision :shell do |shell|
+      shell.inline = "echo 'role: saltmaster' > /etc/salt/grains"
+    end
+
   end
 
   config.vm.define "thing1" do |thing1|

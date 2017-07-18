@@ -22,3 +22,10 @@ vagrant ssh master
 
 ## Bonus Points
 If you self-identify as an AWS Devops Engineer, there is an aws networking state that will build you a basic VPC environment. 
+
+```
+# From the saltmaster
+salt-call --local state.apply tasks.aws.vpc_init
+```
+
+There are also some salt-cloud profiles. Inspect `etc/salt/cloud.profiles.d/` for more info.

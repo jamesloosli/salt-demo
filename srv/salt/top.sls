@@ -5,10 +5,10 @@ base:
   '*':
     - common
 
-  'G@{{ os }}':
+  'os:{{ os }}':
     - match: grain
     - os.{{ os }}
 
-  'G@{{ role }}':
+  'role:{{ role }}':
     - match: grain
     - role.{{ role }}

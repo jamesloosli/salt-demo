@@ -23,8 +23,8 @@ sudo rsync -aid \
 
 # Populate the aws keys
 echo "Populating aws keys"
-AWS_ID=$(grep "aws_access_key_id" ~/.aws/credentials | head -1 | awk '{ print $3 } ')
-AWS_KEY=$(grep "aws_secret_access_key" ~/.aws/credentials | head -1 | awk '{ print $3}')
+AWS_ID=$(grep "aws_access_key_id" /tmp/credentials | head -1 | awk '{ print $3 } ')
+AWS_KEY=$(grep "aws_secret_access_key" /tmp/credentials | head -1 | awk '{ print $3}')
 
 if [[ ! -z $AWS_ID ]] ; then
   bash -c "sed -i '' 's^@AWS_ACCESS_KEY_ID@^${AWS_ID}^' /etc/salt/cloud.providers.d/ec2.conf"

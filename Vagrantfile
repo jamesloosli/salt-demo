@@ -45,7 +45,7 @@ Vagrant.configure("2") do |config|
     ## AWS Key
     master.vm.provision :file do |file|
       file.source = "~/.aws/credentials"
-      file.destination = "/root/.aws/credentials"
+      file.destination = "/tmp/credentials"
     end
 
   end

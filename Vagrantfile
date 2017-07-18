@@ -42,6 +42,11 @@ Vagrant.configure("2") do |config|
       shell.inline = "echo 'role: saltmaster' > /etc/salt/grains"
     end
 
+    ## Git
+    master.vm.provision :shell do |shell|
+      shell.inline = "yum install -y git"
+    end
+
     ## AWS Key
     master.vm.provision :file do |file|
       file.source = "~/.aws/credentials"

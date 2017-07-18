@@ -19,6 +19,16 @@ vagrant up
 # (Optional) Get on the saltmaster and give it a try
 vagrant ssh master
 ```
+## Post Setup tasks
+```
+# Deploy the latest
+sudo -i
+cd /vagrant
+bin/deploy.sh
+
+# Highstate the saltmaster
+salt -G role:saltmaster state.highstate
+```
 
 ## Bonus Points
 If you self-identify as an AWS Devops Engineer, there is an aws networking state that will build you a basic VPC environment. 
